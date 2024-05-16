@@ -124,7 +124,7 @@ class Lexer:
 				return Token(ord('<'))
 		elif self.__peek == '>':
 			if self.readch('='):
-				return Word(Tag.GEQ, ">=")
+				return (Tag.GEQ, ">=")
 			else:
 				return Token(ord('>'))
 		elif self.__peek == '#':

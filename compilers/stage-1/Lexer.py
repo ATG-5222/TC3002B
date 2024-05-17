@@ -185,13 +185,23 @@ class Lexer:
 			return Token(Tag.STRING, val)
 
 		if self.__peek.isdigit():
-			val = 0
+			val = 0.0
 			while True:
 				val = (val * 10) + int(self.__peek)
 				self.read()
 				if not(self.__peek.isdigit()):
 					break
 			## ADD CODE TO PROCESS DECIMAL PART HERE ##
+			if self.__peek == '.':
+				self.read()
+				if self.__peek.isdigit():
+					divisor = 10.0
+					while True:
+						val = val + (float(self.__peek)/divisor)
+						divisor = divisor * 10.0
+						self.read()
+						if not(self.__peek.isdigit()):
+							break
 			return Token(Tag.NUMBER, val)
 
 		if self.__peek.isalpha():

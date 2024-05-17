@@ -142,7 +142,7 @@ class Lexer:
 		if self.__peek == '%':
 			while True:
 				self.read()
-				if self.__peek == '\n':
+				if self.__peek == '\t' or self.__peek == '\r' or self.__peek == '\n':
 					break
 			self.__skipSpaces()
 

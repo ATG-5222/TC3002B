@@ -30,7 +30,7 @@ class Tag(IntEnum):
 	PENUP = 469
 	PENDOWN = 470
 	COLOR = 471
-	PENDWITH = 472
+	PENWITH = 472
 	PRINT = 473
 	REPEAT = 474
 	IF = 475
@@ -91,6 +91,32 @@ class Lexer:
 		self.__words["FORWARD"] = Token(Tag.FORWARD, "FORWARD")
 		self.__words["FD"] = Token(Tag.FORWARD, "FORWARD")
 		## ADD THE REST RESERVED WORDS, REMEMBER THAT SOME RESERVER WORDS HAVE THE SAME TAG ##
+		self.__words["HOME"] = Token(Tag.HOME, "HOME")
+		self.__words["BACKWARD"] = Token(Tag.BACKWARD, "BACKWARD")
+		self.__words["BK"] = Token(Tag.BACKWARD, "BACKWARD")
+		self.__words["LEFT"] = Token(Tag.LEFT, "LEFT")
+		self.__words["LT"] = Token(Tag.LEFT, "LEFT")
+		self.__words["RIGHT"] = Token(Tag.RIGHT, "RIGHT")
+		self.__words["RT"] = Token(Tag.RIGHT, "RIGHT")
+		self.__words["SETX"] = Token(Tag.SETX, "SETX")
+		self.__words["SETY"] = Token(Tag.SETY, "SETY")
+		self.__words["SETXY"] = Token(Tag.SETXY, "SETXY")
+		self.__words["CLEAR"] = Token(Tag.CLEAR, "CLEAR")
+		self.__words["CLS"] = Token(Tag.CLEAR, "CLEAR")
+		self.__words["ARC"] = Token(Tag.ARC, "ARC")
+		self.__words["PENUP"] = Token(Tag.PENUP, "PENUP")
+		self.__words["PU"] = Token(Tag.PENUP, "PENUP")
+		self.__words["PENDOWN"] = Token(Tag.PENDOWN, "PENDOWN")
+		self.__words["PD"] = Token(Tag.PENDOWN, "PENDOWN")
+		self.__words["COLOR"] = Token(Tag.COLOR, "COLOR")
+		self.__words["PENWIDTH"] = Token(Tag.PENWITH, "PENWIDTH")
+		self.__words["PRINT"] = Token(Tag.PRINT, "PRINT")
+		self.__words["REPEAT"] = Token(Tag.REPEAT, "REPEAT")
+		self.__words["IF"] = Token(Tag.IF, "IF")
+		self.__words["IFELSE"] = Token(Tag.IFELSE, "IFELSE")
+		self.__words["OR"] = Token(Tag.OR, "OR")
+		self.__words["AND"] = Token(Tag.AND, "AND")
+		self.__words["MOD"] = Token(Tag.MOD, "MOD")
 
 	def read(self):
 		self.__peek = self.__input.read(1)

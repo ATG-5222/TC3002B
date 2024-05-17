@@ -75,9 +75,8 @@ class Token:
 		elif self.__tag == Tag.STRING:
 			return "string constant"
 		else:
-			return "'" + chr(self.__tag) + "'" 
-			return "'" + chr(self.__tag) + "'" 
-			
+			return "'" + chr(self.__tag) + "'"  
+
 class Lexer:
 	__peek = ' '
 	__words = {}
@@ -135,11 +134,17 @@ class Lexer:
 				self.read()
 			else:
 				break
-	
+
 	def scan(self):
 		self.__skipSpaces()
 
 		## ADD CODE TO SKIP COMMENTS HERE ##
+		if self.__peek == '%':
+			while True:
+				self.read()
+				if self.__peek == '\n':
+					break
+			self.__skipSpaces()
 
 		if self.__peek == '<':
 			if self.readch('='):

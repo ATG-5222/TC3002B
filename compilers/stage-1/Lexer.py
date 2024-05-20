@@ -32,7 +32,7 @@ class Tag(IntEnum):
 	COLOR = 471
 	PENWITH = 472
 	PRINT = 473
-	REPEAT = 474
+	WHILE  = 474
 	IF = 475
 	IFELSE = 476
 	OR = 477
@@ -110,7 +110,7 @@ class Lexer:
 		self.__words["COLOR"] = Token(Tag.COLOR, "COLOR")
 		self.__words["PENWIDTH"] = Token(Tag.PENWITH, "PENWIDTH")
 		self.__words["PRINT"] = Token(Tag.PRINT, "PRINT")
-		self.__words["REPEAT"] = Token(Tag.REPEAT, "REPEAT")
+		self.__words["WHILE"] = Token(Tag.WHILE, "WHILE")
 		self.__words["IF"] = Token(Tag.IF, "IF")
 		self.__words["IFELSE"] = Token(Tag.IFELSE, "IFELSE")
 		self.__words["OR"] = Token(Tag.OR, "OR")

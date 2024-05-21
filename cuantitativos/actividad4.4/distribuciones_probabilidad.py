@@ -15,8 +15,22 @@ corpus_file_path = "corpus.txt"
 original_text = read_text_file(corpus_file_path)
 
 # Generar y almacenar el texto sintético usando markovify
-model = markovify.Text(original_text, state_size=1)
-synthetic_text = model.make_sentence()
+model = markovify.Text(original_text)
+synthetic_text = ''
+for i in range(20):
+    sentence = model.make_sentence()
+    if sentence is None:
+        continue
+    synthetic_text += str(sentence)
+
+# Imprimir ambos textos
+print("---------------")
+print("Texto original:")
+print(original_text)
+print("---------------")
+print("Texto generado:")
+print(synthetic_text)
+print("---------------")
 
 # Almacenar ambos textos juntos
 texts = [original_text, synthetic_text]

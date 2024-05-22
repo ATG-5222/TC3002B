@@ -107,8 +107,8 @@ norm_B = math.sqrt(np.trace(np.matmul(mat2.transpose(), mat2)))
 cos_ang = prod_int / (norm_A * norm_B)
 
 # Imprimir los resultados
-print('Prod int = ' + str(round(prod_int, 4)) + '\n')
+print('Producto interno = ' + str(round(prod_int, 4)) + '\n')
 print('Norm A = ' + str(round(norm_A, 4)) + '\n')
 print('Norm B = ' + str(round(norm_B, 4)) + '\n')
-print('Cosine angle = ' + str(round(cos_ang, 4)) + '\n')
-print('The similarity of both texts is ' + str(round(cos_ang, 4) * 100) + '%' + ', based on the cosine distance of transition matrices.')
+print('Angulo del coseno = ' + str(round(cos_ang, 4)) + '\n')
+print('La similitud entre ambos textos es de: ' + str(round(cos_ang, 4) * 100) + '%' + ', de acuerdo a la distancia del coseno de las matrices de transición.')

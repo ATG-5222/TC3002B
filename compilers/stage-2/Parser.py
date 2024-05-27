@@ -390,9 +390,16 @@ class Parser:
 			self.__check(ord('('))
 			self.__check(ord(')'))	
 
-	#TODO: Implement __setXYStatement
 	def __setXYStatement(self):
-		pass
+		if self.__token.getTag() == Tag.SETXY:
+			self.__check(Tag.SETXY)
+			self.__check(ord('('))
+			self.__expression()
+			self.__check(ord(','))
+			self.__expression()
+			self.__check(ord(')'))
+		else:
+			self.__error("expected a SETXY statement before " + str(self.__token))
 
 	#TODO: Implement __setXStatement
 	def __setXStatement(self):

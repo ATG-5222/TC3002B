@@ -276,7 +276,9 @@ class Parser:
 		if self.__token.getTag() in self.__firstRepetitiveStatement:
 			if self.__token.getTag() == Tag.WHILE:
 				self.__check(Tag.WHILE)
+				self.__check(ord('('))
 				self.__expression()
+				self.__check(ord(')'))
 				self.__check(ord('['))
 				self.__statementSequence()
 				self.__check(ord(']'))
@@ -417,9 +419,14 @@ class Parser:
 		else:
 			self.__error("expected a SETXY statement before " + str(self.__token))
 
-	#TODO: Implement __setXStatement
 	def __setXStatement(self):
-		pass
+		if self.__token.getTag() == Tag.SETX:
+			self.__check(Tag.SETX)
+			self.__check(ord('('))
+			self.__expression()
+			self.__check(ord(')'))
+		else:
+			self.__error("expected a SETX statement before " + str(self.__token))
 
 	#TODO: Implement __setYStatement
 	def __setYStatement(self):

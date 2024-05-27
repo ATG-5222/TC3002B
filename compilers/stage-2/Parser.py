@@ -437,13 +437,23 @@ class Parser:
 		else:
 			self.__error("expected a SETY statement before " + str(self.__token))
 
-	#TODO: Implement __leftStatement
 	def __leftStatement(self):
-		pass
+		if self.__token.getTag() == Tag.LEFT or self.__token.getTag() == Tag.LT:
+			self.__check(self.__token.getTag())
+			self.__check(ord('('))
+			self.__expression()
+			self.__check(ord(')'))
+		else:
+			self.__error("expected a LEFT statement before " + str(self.__token))
 
-	#TODO: Implement __rightStatement
 	def __rightStatement(self):
-		pass
+		if self.__token.getTag() == Tag.RIGHT or self.__token.getTag() == Tag.RT:
+			self.__check(self.__token.getTag())
+			self.__check(ord('('))
+			self.__expression()
+			self.__check(ord(')'))
+		else:
+			self.__error("expected a RIGHT statement before " + str(self.__token))
 
 	#TODO: Implement __backwardStatement
 	def __backwardStatement(self):

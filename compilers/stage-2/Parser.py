@@ -428,9 +428,14 @@ class Parser:
 		else:
 			self.__error("expected a SETX statement before " + str(self.__token))
 
-	#TODO: Implement __setYStatement
 	def __setYStatement(self):
-		pass
+		if self.__token.getTag() == Tag.SETY:
+			self.__check(Tag.SETY)
+			self.__check(ord('('))
+			self.__expression()
+			self.__check(ord(')'))
+		else:
+			self.__error("expected a SETY statement before " + str(self.__token))
 
 	#TODO: Implement __leftStatement
 	def __leftStatement(self):

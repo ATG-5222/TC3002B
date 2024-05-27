@@ -41,7 +41,7 @@ class Parser:
 
 		self.__firstExpression = self.__firstConditionalExpression
 
-		self.__firstDrawingStatement = set((Tag.CLEAR, Tag.CIRCLE, Tag.ARC, Tag.PENUP, Tag.PENDOWN, Tag.COLOR, Tag.PENWIDTH))
+		self.__firstDrawingStatement = set((Tag.CLEAR, Tag.CIRCLE, Tag.ARC, Tag.PENUP, Tag.PENDOWN, Tag.COLOR, Tag.PENWITH))
 
 		self.__firstMovementStatement = set((Tag.FORWARD, Tag.BACKWARD, Tag.LEFT, Tag.RIGHT, Tag.SETX, Tag.SETY, Tag.SETXY, Tag.HOME))
 
@@ -239,7 +239,9 @@ class Parser:
 	def __ifElseStatement(self):
 		if self.__token.getTag() == Tag.IFELSE:
 			self.__check(Tag.IFELSE)
+			self.__check(ord('('))
 			self.__expression()
+			self.__check(ord(')'))
 			self.__check(ord('['))
 			self.__statementSequence()
 			self.__check(ord(']'))
@@ -252,12 +254,26 @@ class Parser:
 	def __ifStatement(self):
 		if self.__token.getTag() == Tag.IF:
 			self.__check(Tag.IF)
+			self.__check(ord('('))
 			self.__expression()
+			self.__check(ord(')'))
 			self.__check(ord('['))
 			self.__statementSequence()
 			self.__check(ord(']'))
 		else:
 			self.__error("expected an IF expression before " + str(self.__token))
+
+	def __whileStatement(self):
+		if self.__token.getTag() == Tag.WHILE:
+			self.__check(Tag.WHILE)
+			self.__check(ord('('))
+			self.__expression()
+			self.__check(ord(')'))
+			self.__check(ord('['))
+			self.__statementSequence()
+			self.__check(ord(']'))
+		else:
+			self.__error("expected an WHILE expression before " + str(self.__token))
 
 	def __conditionalStatement(self):
 		if self.__token.getTag() in self.__firstConditionalStatement:

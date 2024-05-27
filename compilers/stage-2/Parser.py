@@ -94,7 +94,7 @@ class Parser:
 			self.__error("expected a primary expression before " + str(self.__token))
 
 	def __unaryExpression(self):
-		if self.__token.getTag() in self.__firstPrimaryExpression:
+		if self.__token.getTag() in self.__firstUnaryExpression:
 			if self.__token.getTag() == ord('-'):
 				self.__check(ord('-'))
 				self.__unaryExpression()
@@ -128,7 +128,7 @@ class Parser:
 			self.__unaryExpression()
 			self.__extendedMultiplicativeExpression()
 		else:
-			self.__error("expected an multiplicative expression before " + str(self.__token))
+			self.__error("expected a multiplicative expression before " + str(self.__token))
 
 	def __extendedAdditiveExpression(self):
 		if self.__token.getTag() in self.__firstExtendedAdditiveExpression:
@@ -172,7 +172,7 @@ class Parser:
 			pass
 
 	def __relationalExpression(self):
-		if self.__token.getTag() in self.__firstAdditiveExpression:
+		if self.__token.getTag() in self.__firstRelationalExpression:
 			self.__additiveExpression()
 			self.__extendedRelationalExpression()
 		else:
@@ -268,15 +268,22 @@ class Parser:
 		else:
 			self.__error("expected an conditional expression before " + str(self.__token))
 
-	#TODO: Implement __repetitiveStatement
 	def __repetitiveStatement(self):
-		pass
+		if self.__token.getTag() in self.__firstRepetitiveStatement:
+			if self.__token.getTag() == Tag.WHILE:
+				self.__check(Tag.WHILE)
+				self.__expression()
+				self.__check(ord('['))
+				self.__statementSequence()
+				self.__check(ord(']'))
+		else:
+			self.__error("expected a repetitive statement before " + str(self.__token))
 
 	def __structuredStatement(self):
 		if self.__token.getTag() in self.__firstStructuredStatement:
 			if self.__token.getTag() in self.__firstConditionalStatement:
 				self.__conditionalStatement()
-			elif self.__token.getTag() == Tag.WHILE:
+			elif self.__token.getTag() in self.__firstRepetitiveStatement:
 				self.__repetitiveStatement()
 		else:
 			self.__error("expected an structured expression before " + str(self.__token))

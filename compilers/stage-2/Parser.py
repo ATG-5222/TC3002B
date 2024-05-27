@@ -193,13 +193,21 @@ class Parser:
 		else:
 			self.__error("expected an equality expression before " + str(self.__token))
 
-	#TODO: Implement __extendedConditionalTerm
 	def __extendedConditionalTerm(self):
-		pass
+		if self.__token.getTag() in self.__firstExtendedConditionalTerm:
+			if self.__token.getTag() == Tag.AND:
+				self.__check(Tag.AND)
+				self.__equalityExpression()
+				self.__extendedConditionalTerm()
+		else:
+			pass
 
-	#TODO: Implement __conditionalTerm
 	def __conditionalTerm(self):
-		pass
+		if self.__token.getTag() in self.__firstEqualityExpression:
+			self.__equalityExpression()
+			self.__extendedConditionalTerm()
+		else:
+			self.__error("expected a conditional term before " + str(self.__token))
 
 	#TODO: Implement __extendedConditionalExpression
 	def __extendedConditionalExpression(self):

@@ -7,46 +7,51 @@ class Parser:
 
 		self.__firstPrimaryExpression = set((Tag.ID, Tag.NUMBER, Tag.TRUE, Tag.FALSE, ord('(')))
 
-		self.__firstUnaryExpression = self.__firstPrimaryExpression.union( set((ord('-'), ord('!'))) )
-		
+		self.__firstUnaryExpression = self.__firstPrimaryExpression.union(set((ord('-'), ord('!'))))
+
 		self.__firstExtendedMultiplicativeExpression = set((ord('*'), ord('/'), Tag.MOD))
 
 		self.__firstMultiplicativeExpression = self.__firstUnaryExpression
 
 		self.__firstExtendedAdditiveExpression = set((ord('+'), ord('-')))
 
-		#TODO: Implement __firstExtendedRelationalExpression
-		self.__firstExtendedRelationalExpression = set()
+		self.__firstExtendedRelationalExpression = set((ord('<'), ord('<='), ord('>'), ord('>=')))
 
-		#TODO: Implement __firstConditionalStatement
-		self.__firstConditionalStatement = set()
+		self.__firstRelationalExpression = self.__firstMultiplicativeExpression
 
-		#TODO: Implement __firstStructuredStatement
-		self.__firstStructuredStatement = set()
+		self.__firstExtendedEqualityExpression = set((ord('='), ord('<>')))
 
-		#TODO: Implement __firstElement
-		self.__firstElement = set()
+		self.__firstEqualityExpression = self.__firstRelationalExpression
 
-		#TODO: Implement __firstExpression
-		self.__firstExpression = set()
+		self.__firstExtendedConditionalTerm = set((Tag.AND,))
 
-		#TODO: Implement __firstDrawingStatement
-		self.__firstDrawingStatement = set()
-		
-		#TODO: Implement __firstMovementStatement
-		self.__firstMovementStatement = set()
+		self.__firstConditionalTerm = self.__firstEqualityExpression
 
-		#TODO: Implement __firstSimpleStatement
-		self.__firstSimpleStatement = set()
+		self.__firstExtendedConditionalExpression = set((Tag.OR,))
 
-		#TODO: Implement __firstStatement
-		self.__firstStatement = set()
+		self.__firstConditionalExpression = self.__firstConditionalTerm
 
-		#TODO: Implement __firstStatementSequence
-		self.__firstStatementSequence = set()
+		self.__firstConditionalStatement = set((Tag.IF, Tag.IFELSE))
 
-		#TODO: Implement __firstProgram
-		self.__firstProgram = set()
+		self.__firstRepetitiveStatement = set((Tag.WHILE,))
+
+		self.__firstStructuredStatement = self.__firstConditionalStatement.union(self.__firstRepetitiveStatement)
+
+		self.__firstElement = set((Tag.STRING,)).union(self.__firstConditionalExpression)
+
+		self.__firstExpression = self.__firstConditionalExpression
+
+		self.__firstDrawingStatement = set((Tag.CLEAR, Tag.CIRCLE, Tag.ARC, Tag.PENUP, Tag.PENDOWN, Tag.COLOR, Tag.PENWIDTH))
+
+		self.__firstMovementStatement = set((Tag.FORWARD, Tag.BACKWARD, Tag.LEFT, Tag.RIGHT, Tag.SETX, Tag.SETY, Tag.SETXY, Tag.HOME))
+
+		self.__firstSimpleStatement = set((Tag.VAR, Tag.ID, Tag.PRINT)).union(self.__firstMovementStatement).union(self.__firstDrawingStatement)
+
+		self.__firstStatement = self.__firstSimpleStatement.union(self.__firstStructuredStatement)
+
+		self.__firstStatementSequence = self.__firstStatement
+
+		self.__firstProgram = self.__firstStatementSequence
 
 	def __error(self, extra = None):
 		text = 'Line ' + str(self.__lex.getLine()) + " - " 

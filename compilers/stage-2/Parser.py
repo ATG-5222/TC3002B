@@ -173,14 +173,26 @@ class Parser:
 		else:
 			self.__error("expected a relational expression before " + str(self.__token))
 
-	#TODO: Implement __extendedEqualityExpression
 	def __extendedEqualityExpression(self):
-		pass
-	
-	#TODO: Implement __equalityExpression
+		if self.__token.getTag() in self.__firstExtendedEqualityExpression:
+			if self.__token.getTag() == ord('='):
+				self.__check(ord('='))
+				self.__relationalExpression()
+				self.__extendedEqualityExpression()
+			elif self.__token.getTag() == ord('<>'):
+				self.__check(ord('<>'))
+				self.__relationalExpression()
+				self.__extendedEqualityExpression()
+		else:
+			pass
+
 	def __equalityExpression(self):
-		pass
-	
+		if self.__token.getTag() in self.__firstRelationalExpression:
+			self.__relationalExpression()
+			self.__extendedEqualityExpression()
+		else:
+			self.__error("expected an equality expression before " + str(self.__token))
+
 	#TODO: Implement __extendedConditionalTerm
 	def __extendedConditionalTerm(self):
 		pass
@@ -200,7 +212,7 @@ class Parser:
 	#TODO: Implement __expression
 	def __expression(self):
 		pass
-	
+
 	def __ifElseStatement(self):
 		if self.__token.getTag() == Tag.IFELSE:
 			self.__check(Tag.IFELSE)
@@ -233,7 +245,6 @@ class Parser:
 		else:
 			self.__error("expected an conditional expression before " + str(self.__token))
 
-	
 	#TODO: Implement __repetitiveStatement
 	def __repetitiveStatement(self):
 		pass

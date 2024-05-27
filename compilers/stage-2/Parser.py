@@ -263,18 +263,6 @@ class Parser:
 		else:
 			self.__error("expected an IF expression before " + str(self.__token))
 
-	def __whileStatement(self):
-		if self.__token.getTag() == Tag.WHILE:
-			self.__check(Tag.WHILE)
-			self.__check(ord('('))
-			self.__expression()
-			self.__check(ord(')'))
-			self.__check(ord('['))
-			self.__statementSequence()
-			self.__check(ord(']'))
-		else:
-			self.__error("expected an WHILE expression before " + str(self.__token))
-
 	def __conditionalStatement(self):
 		if self.__token.getTag() in self.__firstConditionalStatement:
 			if self.__token.getTag() == Tag.IF:

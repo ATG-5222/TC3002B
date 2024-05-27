@@ -225,9 +225,11 @@ class Parser:
 		else:
 			self.__error("expected a conditional expression before " + str(self.__token))
 
-	#TODO: Implement __expression
 	def __expression(self):
-		pass
+		if self.__token.getTag() in self.__firstConditionalExpression:
+			self.__conditionalExpression()
+		else:
+			self.__error("expected an expression before " + str(self.__token))
 
 	def __ifElseStatement(self):
 		if self.__token.getTag() == Tag.IFELSE:

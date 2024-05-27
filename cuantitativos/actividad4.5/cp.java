@@ -1,7 +1,9 @@
 import java.util.*;
 import java.io.*;
-import java.lang.*;
+/*
+#import java.lang.*;
 import static java.lang.Math.*;
+*/
 
 public class cp{
     static BufferedReader br;

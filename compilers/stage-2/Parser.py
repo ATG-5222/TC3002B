@@ -47,7 +47,6 @@ class Parser:
 
 		#TODO: Implement __firstProgram
 		self.__firstProgram = set()
-		
 
 	def __error(self, extra = None):
 		text = 'Line ' + str(self.__lex.getLine()) + " - " 
@@ -67,7 +66,7 @@ class Parser:
 			else:
 				text = text + "an identifier before " + str(self.__token) 
 			self.__error(text)
-	
+
 	def analize(self):
 		self.__token = self.__lex.scan()
 		self.__program()
@@ -88,7 +87,7 @@ class Parser:
 				self.__check(ord(')'))
 		else:
 			self.__error("expected a primary expression before " + str(self.__token))
-		
+
 	def __unaryExpression(self):
 		if self.__token.getTag() in self.__firstPrimaryExpression:
 			if self.__token.getTag() == ord('-'):
@@ -101,7 +100,7 @@ class Parser:
 				self.__primaryExpression()
 		else: 
 			self.__error("expected an unary expression before " + str(self.__token))
-		
+
 	def __extendedMultiplicativeExpression(self):
 		if self.__token.getTag() in self.__firstExtendedMultiplicativeExpression:
 			if self.__token.getTag() == ord('*'):
@@ -138,22 +137,42 @@ class Parser:
 				self.__extendedAdditiveExpression()
 		else:
 			pass
-	
+
 	def __additiveExpression(self):
 		if self.__token.getTag() in self.__firstMultiplicativeExpression:
 			self.__multiplicativeExpression()
 			self.__extendedAdditiveExpression()
 		else:
 			self.__error("expected an additive expression before " + str(self.__token))
-	
-	#TODO: Implement __extendedRelationalExpression
+
 	def __extendedRelationalExpression(self):
-		pass
-	
-	#TODO: Implement __relationalExpression
+		if self.__token.getTag() in self.__firstExtendedRelationalExpression:
+			if self.__token.getTag() == ord('<'):
+				self.__check(ord('<'))
+				self.__additiveExpression()
+				self.__extendedRelationalExpression()
+			elif self.__token.getTag() == ord('<='):
+				self.__check(ord('<='))
+				self.__additiveExpression()
+				self.__extendedRelationalExpression()
+			elif self.__token.getTag() == ord('>'):
+				self.__check(ord('>'))
+				self.__additiveExpression()
+				self.__extendedRelationalExpression()
+			elif self.__token.getTag() == ord('>='):
+				self.__check(ord('>='))
+				self.__additiveExpression()
+				self.__extendedRelationalExpression()
+		else:
+			pass
+
 	def __relationalExpression(self):
-		pass
-	
+		if self.__token.getTag() in self.__firstAdditiveExpression:
+			self.__additiveExpression()
+			self.__extendedRelationalExpression()
+		else:
+			self.__error("expected a relational expression before " + str(self.__token))
+
 	#TODO: Implement __extendedEqualityExpression
 	def __extendedEqualityExpression(self):
 		pass
@@ -218,7 +237,7 @@ class Parser:
 	#TODO: Implement __repetitiveStatement
 	def __repetitiveStatement(self):
 		pass
-		
+
 	def __structuredStatement(self):
 		if self.__token.getTag() in self.__firstStructuredStatement:
 			if self.__token.getTag() in self.__firstConditionalStatement:
@@ -236,7 +255,7 @@ class Parser:
 				self.__expression()
 		else:
 			self.__error("expected an element expression before " + str(self.__token))
-		
+
 	def __elementList(self):
 		if self.__token.getTag() == ord(','):
 			self.__check(ord(','))
@@ -244,7 +263,7 @@ class Parser:
 			self.__elementList()
 		else:
 			pass
-		
+
 	def __textStatement(self):
 		if self.__token.getTag() == Tag.PRINT:
 			self.__check(Tag.PRINT)
@@ -274,7 +293,7 @@ class Parser:
 			self.__check(ord(')'))
 		else:
 			self.__error("expected a COLOR statement before " + str(self.__token))
-		
+
 	def __penDownStatement(self):
 		if self.__token.getTag() == Tag.PENDOWN:
 			self.__check(Tag.PENDOWN)
@@ -282,7 +301,7 @@ class Parser:
 			self.__check(ord(')'))
 		else:
 			self.__error("expected a PENDOWN statement before " + str(self.__token))
-		
+
 	def __penUpStatement(self):
 		if self.__token.getTag() == Tag.PENUP:
 			self.__check(Tag.PENUP)
@@ -290,7 +309,7 @@ class Parser:
 			self.__check(ord(')'))
 		else:
 			self.__error("expected a PENUP statement before " + str(self.__token))
-		
+
 	def __arcStatement(self):
 		if self.__token.getTag() == Tag.ARC:
 			self.__check(Tag.ARC)
@@ -301,14 +320,14 @@ class Parser:
 			self.__check(ord(')'))
 		else:
 			self.__error("expected a ARC statement before " + str(self.__token))
-		
+
 	def __circleStatement(self):
 		if self.__token.getTag() == Tag.CIRCLE:
 			self.__check(Tag.CIRCLE)
 			self.__expression()
 		else:
 			self.__error("expected a CIRCLE statement before " + str(self.__token))
-		
+
 	def __clearStatement(self):
 		if self.__token.getTag() == Tag.CLEAR:
 			self.__check(Tag.CLEAR)
@@ -341,35 +360,35 @@ class Parser:
 			self.__check(Tag.HOME)
 			self.__check(ord('('))
 			self.__check(ord(')'))	
-	
+
 	#TODO: Implement __setXYStatement
 	def __setXYStatement(self):
 		pass
-	
+
 	#TODO: Implement __setXStatement
 	def __setXStatement(self):
 		pass
-	
+
 	#TODO: Implement __setYStatement
 	def __setYStatement(self):
 		pass
-	
+
 	#TODO: Implement __leftStatement
 	def __leftStatement(self):
 		pass
-	
+
 	#TODO: Implement __rightStatement
 	def __rightStatement(self):
 		pass
-	
+
 	#TODO: Implement __backwardStatement
 	def __backwardStatement(self):
 		pass
-	
+
 	#TODO: Implement __forwardStatement
 	def __forwardStatement(self):
 		pass
-	
+
 	#TODO: Implement __movementStatement
 	def __movementStatement(self):
 		pass
@@ -381,7 +400,7 @@ class Parser:
 			self.__expression()
 		else:
 			self.__error("expected an ASSIGMENT statement before " + str(self.__token))
-		
+
 	def __identifierList(self):
 		if self.__token.getTag() == ord(','):
 			self.__check(ord(','))
@@ -397,7 +416,7 @@ class Parser:
 			self.__identifierList()
 		else:
 			self.__error("expected a DECLARATION statement before " + str(self.__token))
-		
+
 	def __simpleStatement(self):
 		if self.__token.getTag() in self.__firstSimpleStatement:
 			if self.__token.getTag() == Tag.VAR:
@@ -414,7 +433,7 @@ class Parser:
 				self._home()
 		else:
 			self.__error("expected a simple statement statement before " + str(self.__token))
-		
+
 	def __statement(self):
 		if self.__token.getTag() in self.__firstStatement:
 			if self.__token.getTag() in self.__firstSimpleStatement:
@@ -423,7 +442,7 @@ class Parser:
 				self.__structuredStatement()
 		else:
 			self.__error("expected a statement before " + str(self.__token))
-		
+
 	def __statementSequence(self):
 		if self.__token.getTag() in self.__firstStatementSequence:
 			self.__statement()

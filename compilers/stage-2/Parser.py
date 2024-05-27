@@ -455,13 +455,23 @@ class Parser:
 		else:
 			self.__error("expected a RIGHT statement before " + str(self.__token))
 
-	#TODO: Implement __backwardStatement
 	def __backwardStatement(self):
-		pass
+		if self.__token.getTag() == Tag.BACKWARD or self.__token.getTag() == Tag.BK:
+			self.__check(self.__token.getTag())
+			self.__check(ord('('))
+			self.__expression()
+			self.__check(ord(')'))
+		else:
+			self.__error("expected a BACKWARD statement before " + str(self.__token))
 
-	#TODO: Implement __forwardStatement
 	def __forwardStatement(self):
-		pass
+		if self.__token.getTag() == Tag.FORWARD or self.__token.getTag() == Tag.FD:
+			self.__check(self.__token.getTag())
+			self.__check(ord('('))
+			self.__expression()
+			self.__check(ord(')'))
+		else:
+			self.__error("expected a FORWARD statement before " + str(self.__token))
 
 	#TODO: Implement __movementStatement
 	def __movementStatement(self):

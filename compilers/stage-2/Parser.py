@@ -125,15 +125,26 @@ class Parser:
 			self.__extendedMultiplicativeExpression()
 		else:
 			self.__error("expected an multiplicative expression before " + str(self.__token))
-	
-	
-	#TODO: Implement __extendedAdditiveExpression
+
 	def __extendedAdditiveExpression(self):
-		pass
+		if self.__token.getTag() in self.__firstExtendedAdditiveExpression:
+			if self.__token.getTag() == ord('+'):
+				self.__check(ord('+'))
+				self.__multiplicativeExpression()
+				self.__extendedAdditiveExpression()
+			elif self.__token.getTag() == ord('-'):
+				self.__check(ord('-'))
+				self.__multiplicativeExpression()
+				self.__extendedAdditiveExpression()
+		else:
+			pass
 	
-	#TODO: Implement __additiveExpression 
 	def __additiveExpression(self):
-		pass
+		if self.__token.getTag() in self.__firstMultiplicativeExpression:
+			self.__multiplicativeExpression()
+			self.__extendedAdditiveExpression()
+		else:
+			self.__error("expected an additive expression before " + str(self.__token))
 	
 	#TODO: Implement __extendedRelationalExpression
 	def __extendedRelationalExpression(self):

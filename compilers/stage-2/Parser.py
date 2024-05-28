@@ -473,9 +473,26 @@ class Parser:
 		else:
 			self.__error("expected a FORWARD statement before " + str(self.__token))
 
-	#TODO: Implement __movementStatement
 	def __movementStatement(self):
-		pass
+		if self.__token.getTag() in self.__firstMovementStatement:
+			if self.__token.getTag() == Tag.FORWARD or self.__token.getTag() == Tag.FD:
+				self.__forwardStatement()
+			elif self.__token.getTag() == Tag.BACKWARD or self.__token.getTag() == Tag.BK:
+				self.__backwardStatement()
+			elif self.__token.getTag() == Tag.RIGHT or self.__token.getTag() == Tag.RT:
+				self.__rightStatement()
+			elif self.__token.getTag() == Tag.LEFT or self.__token.getTag() == Tag.LT:
+				self.__leftStatement()
+			elif self.__token.getTag() == Tag.SETX:
+				self.__setXStatement()
+			elif self.__token.getTag() == Tag.SETY:
+				self.__setYStatement()
+			elif self.__token.getTag() == Tag.SETXY:
+				self.__setXYStatement()
+			elif self.__token.getTag() == Tag.HOME:
+				self._home()
+		else:
+			self.__error("expected a movement statement before " + str(self.__token))
 
 	def __assigmentStatement(self):
 		if self.__token.getTag() == Tag.ID:

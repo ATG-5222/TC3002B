@@ -3,11 +3,11 @@ import math
 import javalang
 
 # Leer y almacenar el texto 1 
-with open("example_1.java", 'r', encoding='utf-8') as file1:
+with open("cp.java", 'r', encoding='utf-8') as file1:
     text1 = file1.read()
 
 # Leer y almacenar el texto 2 
-with open("example_2.java", 'r', encoding='utf-8') as file2:
+with open("Main.java", 'r', encoding='utf-8') as file2:
     text2 = file2.read()
 
 # Función para tokenizar utilizando javalang

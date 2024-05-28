@@ -322,8 +322,8 @@ class Parser:
 			self.__error("expected a PRINT statement before " + str(self.__token))
 
 	def __penWidthStatement(self):
-		if self.__token.getTag() == Tag.PENWIDTH:
-			self.__check(Tag.PENWIDTH)
+		if self.__token.getTag() == Tag.PENWITH:
+			self.__check(Tag.PENWITH)
 			self.__expression()
 		else:
 			self.__error("expected a PENWIDTH statement before " + str(self.__token))
@@ -397,7 +397,7 @@ class Parser:
 				self.__penDownStatement()
 			elif self.__token.getTag() == Tag.COLOR:
 				self.__colorStatement()
-			elif self.__token.getTag() == Tag.PENWIDTH:
+			elif self.__token.getTag() == Tag.PENWITH:
 				self.__penWidthStatement()
 		else:
 			self.__error("expected a drawing statement before " + str(self.__token))

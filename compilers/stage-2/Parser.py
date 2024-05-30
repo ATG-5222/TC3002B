@@ -15,11 +15,11 @@ class Parser:
 
 		self.__firstExtendedAdditiveExpression = set((ord('+'), ord('-')))
 
-		self.__firstExtendedRelationalExpression = set((ord('<'), ord('<='), ord('>'), ord('>=')))
+		self.__firstExtendedRelationalExpression = set((ord('<'), ord('<'), ord('='), ord('>'), ord('>')))
 
 		self.__firstRelationalExpression = self.__firstMultiplicativeExpression
 
-		self.__firstExtendedEqualityExpression = set((ord('='), ord('<>')))
+		self.__firstExtendedEqualityExpression = set((ord('='), ord('<'), ord('>')))
 
 		self.__firstEqualityExpression = self.__firstRelationalExpression
 
